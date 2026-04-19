@@ -85,13 +85,13 @@ export default function Home() {
               className="bg-[#fffaf2] p-5 rounded-2xl shadow-sm hover:shadow-lg transition duration-300 flex flex-col items-center justify-center"
             >
               {/* ICON FIX */}
-              <div className="w-14 h-14 flex items-center justify-center mb-3 overflow-visible">
-  <img
-    src={item.img}
-    alt={item.text}
-    className="w-20 h-20 object-contain transition duration-300 hover:scale-110"
-  />
-</div>
+              <div className="w-14 h-14 flex items-center justify-center mb-3">
+                <img
+                  src={item.img}
+                  alt={item.text}
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
 
               <p className="text-sm font-medium text-gray-700 text-center">
                 {item.text}

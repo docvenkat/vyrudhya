@@ -1,59 +1,98 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Playfair_Display } from "next/font/google";
+
+// Premium brand font
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["600"],
+});
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [shopOpen, setShopOpen] = useState(false);
 
-  // Scroll effect (premium)
+  // Scroll effect
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const linkClass = (path) =>
+    pathname === path
+      ? "text-blue-600 border-b-2 border-blue-600 pb-1"
+      : "hover:text-blue-600";
+
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+      className={`sticky top-0 z-50 px-6 md:px-12 py-4 flex items-center justify-between transition-all duration-300
+      ${
         scrolled
-          ? "bg-white shadow-md border-b border-gray-200"
-          : "bg-white/80 backdrop-blur"
+          ? "bg-white/90 backdrop-blur-md shadow-md border-b border-gray-200"
+          : "bg-white/70 backdrop-blur-sm"
       }`}
     >
-      <div className="flex justify-between items-center px-6 md:px-12 py-4">
 
-        {/* LOGO */}
-        <Link href="/" className="text-xl font-semibold">
+      {/* LOGO + BRAND */}
+      <a href="/" className="flex items-center space-x-3">
+        <img
+          src="/logo.png"
+          alt="Vyrudhya Logo"
+          className="h-10 w-auto"
+        />
+        <span className={`${playfair.className} text-xl font-semibold tracking-wide`}>
           Vyrudhya
-        </Link>
+        </span>
+      </a>
 
-        {/* DESKTOP MENU */}
-        <div className="hidden md:flex gap-8 items-center">
+      {/* DESKTOP MENU */}
+      <div className="hidden md:flex items-center space-x-8 font-medium text-[var(--text)]">
 
-          <Link href="/" className="hover:text-blue-600">
-            Home
-          </Link>
+        <a href="/" className={linkClass("/")}>Home</a>
 
-          <Link href="/about" className="hover:text-blue-600">
-            About
-          </Link>
+        <a href="/about" className={linkClass("/about")}>About</a>
 
-          <Link href="/contact" className="hover:text-blue-600">
-            Contact
-          </Link>
+        {/* SHOP DROPDOWN */}
+        <div
+          className="relative"
+          onMouseEnter={() => setShopOpen(true)}
+          onMouseLeave={() => setShopOpen(false)}
+        >
+          <span className="cursor-pointer hover:text-blue-600">
+            Shop
+          </span>
 
-          <button className="bg-[var(--yellow)] px-5 py-2 rounded-full hover:scale-105 transition">
-            Buy Now
-          </button>
-
+          {shopOpen && (
+            <div className="absolute top-8 left-0 bg-white shadow-md rounded-xl p-4 w-48">
+              <a href="#" className="block py-1 hover:text-blue-600">Animals</a>
+              <a href="#" className="block py-1 hover:text-blue-600">Space</a>
+              <a href="#" className="block py-1 hover:text-blue-600">Fruits</a>
+              <a href="#" className="block py-1 hover:text-blue-600">India</a>
+            </div>
+          )}
         </div>
 
-        {/* HAMBURGER */}
+        <a href="/contact" className={linkClass("/contact")}>Contact</a>
+
+      </div>
+
+      {/* RIGHT SIDE */}
+      <div className="flex items-center space-x-4">
+
+        {/* CART ICON */}
+        <span className="text-xl cursor-pointer">🛒</span>
+
+        {/* BUY BUTTON */}
+        <button className="hidden md:block bg-[var(--yellow)] px-5 py-2 rounded-full font-medium hover:scale-105 transition">
+          Buy Now
+        </button>
+
+        {/* MOBILE MENU BUTTON */}
         <button
           className="md:hidden text-2xl"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -65,41 +104,20 @@ export default function Navbar() {
 
       {/* MOBILE MENU */}
       {menuOpen && (
-        <div className="absolute top-16 left-0 w-full bg-white shadow-md flex flex-col items-center py-6 space-y-5 z-50">
+        <div className="absolute top-full left-0 w-full bg-white shadow-md flex flex-col items-center py-4 space-y-4 md:hidden">
 
-          <Link
-            href="/"
-            className="text-lg font-medium"
-            onClick={() => setMenuOpen(false)}
-          >
-            Home
-          </Link>
+          <a href="/" onClick={() => setMenuOpen(false)}>Home</a>
+          <a href="/about" onClick={() => setMenuOpen(false)}>About</a>
+          <a href="/shop" onClick={() => setMenuOpen(false)}>Shop</a>
+          <a href="/contact" onClick={() => setMenuOpen(false)}>Contact</a>
 
-          <Link
-            href="/about"
-            className="text-lg font-medium"
-            onClick={() => setMenuOpen(false)}
-          >
-            About
-          </Link>
-
-          <Link
-            href="/contact"
-            className="text-lg font-medium"
-            onClick={() => setMenuOpen(false)}
-          >
-            Contact
-          </Link>
-
-          <button
-            className="bg-[var(--yellow)] px-6 py-2 rounded-full"
-            onClick={() => setMenuOpen(false)}
-          >
+          <button className="bg-[var(--yellow)] px-5 py-2 rounded-full">
             Buy Now
           </button>
 
         </div>
       )}
+
     </nav>
   );
 }
