@@ -14,7 +14,7 @@ export default function About() {
       <Navbar />
 
       {/* HERO */}
-      <section className="text-center px-6 py-20 bg-[var(--sky)] rounded-b-3xl">
+      <section className="text-center px-4 md:px-6 py-14 md:py-20 bg-[var(--sky)] rounded-b-3xl">
         <h1 className={`text-5xl mb-4 ${cormorant.className}`}>
           About Vyrudhya
         </h1>
@@ -24,10 +24,10 @@ export default function About() {
       </section>
 
       {/* VISION */}
-      <section className="py-20 px-6 max-w-4xl mx-auto space-y-10">
+      <section className="py-12 px-4 md:px-6 max-w-3xl mx-auto space-y-8">
 
         {/* TITLE */}
-        <h2 className={`text-4xl text-center ${cormorant.className}`}>
+        <h2 className={`text-2xl md:text-4xl text-center ${cormorant.className}`}>
           Our Vision
         </h2>
 
@@ -51,7 +51,7 @@ export default function About() {
         </div>
 
         {/* BIG HIGHLIGHT */}
-        <div className="bg-[var(--sky)] p-10 rounded-2xl text-center shadow-sm">
+        <div className="bg-[var(--sky)] p-5 md:p-10 rounded-2xl text-center shadow-sm">
           <p className="text-2xl font-semibold">
             Today’s children don’t just need alphabets.
           </p>
@@ -70,7 +70,7 @@ export default function About() {
         </div>
 
         {/* QUOTE */}
-        <div className="border-l-4 border-yellow-400 pl-6 py-4 text-xl italic text-gray-800">
+        <div className="border-l-4 border-yellow-400 pl-4 md:pl-6 py-3 text-base md:text-xl italic text-gray-800">
           Learning should not begin with memory —  
           it should begin with curiosity.
         </div>
@@ -108,11 +108,11 @@ export default function About() {
         </div>
 
         {/* QUESTION */}
-        <div className="bg-[var(--cream)] p-10 rounded-2xl text-center border border-gray-200">
+        <div className="bg-[var(--cream)] p-5 md:p-10 rounded-2xl text-center border border-gray-200">
           <p className="text-xl">
             Every page is thoughtfully designed to make a child pause, think, and ask:
           </p>
-          <p className="text-3xl mt-4 italic">
+          <p className="text-xl md:text-3xl mt-4 italic">
             “What next?”
           </p>
         </div>
