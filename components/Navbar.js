@@ -39,16 +39,13 @@ export default function Navbar() {
     >
 
       {/* LOGO + BRAND */}
-      <a href="/" className="flex items-center space-x-3">
-        <img
-          src="/logo.png"
-          alt="Vyrudhya Logo"
-          className="h-10 w-auto"
-        />
-        <span className={`${playfair.className} text-xl font-semibold tracking-wide`}>
-          Vyrudhya
-        </span>
-      </a>
+      <a href="/" className="flex items-center">
+  <img
+    src="/logo.png"
+    alt="Vyrudhya Logo"
+    className="h-14 md:h-16 w-auto object-contain"
+  />
+</a>
 
       {/* DESKTOP MENU */}
       <div className="hidden md:flex items-center space-x-8 font-medium text-[var(--text)]">
