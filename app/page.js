@@ -159,6 +159,46 @@ export default function Home() {
 
 </section>
 
+{/* LEARNING SECTION */}
+<section className="section flex flex-col md:flex-row items-center gap-12">
+
+  {/* LEFT: IMAGE */}
+  <div className="flex-1 flex justify-center">
+    <img
+      src="/images/learning1.jpg"
+      alt="Learning Preview"
+      className="w-full max-w-[420px] rounded-3xl shadow-lg hover:scale-105 transition duration-300"
+    />
+  </div>
+
+  {/* RIGHT: TEXT */}
+  <div className="flex-1">
+
+    <h2 className="text-3xl md:text-4xl font-semibold mb-6">
+      See How Your Child Learns
+    </h2>
+
+    <p className="text-gray-700 mb-4 text-lg leading-relaxed">
+      Today’s children don’t just need alphabets.
+    </p>
+
+    <p className="text-gray-700 mb-4 text-lg leading-relaxed">
+      They need understanding, curiosity, and a connection to the real world.
+    </p>
+
+    <p className="text-gray-700 mb-4 text-lg leading-relaxed">
+      These books go beyond repetitive ABC learning —
+      introducing meaningful exploration from A to Z.
+    </p>
+
+    <p className="text-blue-600 font-semibold text-xl mt-6">
+      Every page makes a child ask:
+      <span className="italic"> “What next?”</span>
+    </p>
+
+  </div>
+
+</section>
     </main>
   );
 }
