@@ -12,14 +12,13 @@ export default function Home() {
         {/* MOBILE VERSION */}
         <div className="md:hidden flex justify-center px-4 pt-4">
 
-          {/* CONTAINER */}
-          <div className="w-full max-w-[95%] rounded-2xl overflow-hidden bg-white">
+          <div className="w-full max-w-[95%] rounded-3xl overflow-hidden bg-[#fffaf2] shadow-sm">
 
-            {/* IMAGE */}
+            {/* IMAGE (NO CROPPING + BLENDED) */}
             <img
-              src="/hero.png"
+              src="/hero/hero.png"
               alt="Hero"
-              className="w-full h-[220px] object-cover"
+              className="w-full h-[240px] object-contain bg-[#fffaf2]"
             />
 
             {/* TEXT */}
@@ -60,23 +59,22 @@ export default function Home() {
         {/* DESKTOP VERSION */}
         <div className="hidden md:flex justify-center px-6 py-6">
 
-          {/* CONTAINER */}
-          <div className="relative w-full max-w-[1150px] rounded-2xl overflow-hidden">
+          <div className="relative w-full max-w-[1150px] rounded-3xl overflow-hidden bg-[var(--cream)] shadow-sm">
 
-            {/* IMAGE */}
-            <div className="absolute inset-0">
+            {/* IMAGE (PROPERLY CLIPPED) */}
+            <div className="absolute inset-0 flex items-center justify-end pr-6">
               <img
-                src="/hero.png"
+                src="/hero/hero.png"
                 alt="Hero"
-                className="w-full h-full object-cover object-right"
+                className="h-[95%] w-auto object-contain"
               />
             </div>
 
             {/* OVERLAY */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[var(--cream)]/90 via-[var(--cream)]/50 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-[var(--cream)]/88 via-[var(--cream)]/50 to-transparent"></div>
 
             {/* CONTENT */}
-            <div className="relative px-10 py-12 flex items-center min-h-[430px]">
+            <div className="relative px-10 py-12 flex items-center min-h-[460px]">
 
               <div className="max-w-lg">
 
@@ -117,43 +115,49 @@ export default function Home() {
 
       </section>
 
-      {/* WHY SECTION (kept same for now) */}
-      <section className="section text-center">
+      {/* WHY SECTION */}
+<section className="section text-center">
 
-        <h2 className="text-2xl md:text-3xl font-semibold mb-10">
-          Why These Books Are Different
-        </h2>
+  <h2 className="text-3xl md:text-4xl font-semibold mb-14">
+    Why These Books Are Different
+  </h2>
 
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+  <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
 
-          {[
-            { img: "/icons/concept.png", text: "Concept-Based ABC" },
-            { img: "/icons/realworld.png", text: "Real-World Themes" },
-            { img: "/icons/visual.png", text: "Visually Engaging" },
-            { img: "/icons/parent.png", text: "Parent Approved" },
-            { img: "/icons/curiosity.png", text: "Build Curiosity" },
-          ].map((item, i) => (
-            <div
-              key={i}
-              className="bg-[#fffaf2] p-6 rounded-2xl shadow-sm hover:shadow-xl transition duration-300 flex flex-col items-center"
-            >
-              <div className="w-20 h-20 flex items-center justify-center mb-4 bg-white rounded-xl shadow-sm">
-                <img
-                  src={item.img}
-                  alt={item.text}
-                  className="w-12 h-12 object-contain"
-                />
-              </div>
+    {[
+      { img: "/icons/concept.png", text: "Concept-Based ABC" },
+      { img: "/icons/realworld.png", text: "Real-World Themes" },
+      { img: "/icons/visual.png", text: "Visually Engaging" },
+      { img: "/icons/parent.png", text: "Parent Approved" },
+      { img: "/icons/curiosity.png", text: "Build Curiosity" },
+    ].map((item, i) => (
+      <div
+        key={i}
+        className="group bg-[#fffaf2] p-7 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col items-center hover:-translate-y-2"
+      >
 
-              <p className="text-sm md:text-base font-medium text-gray-700 text-center">
-                {item.text}
-              </p>
-            </div>
-          ))}
+        {/* ICON CONTAINER */}
+        <div className="w-24 h-24 flex items-center justify-center mb-5 bg-white rounded-2xl shadow-md group-hover:scale-110 transition duration-300">
+
+          <img
+            src={item.img}
+            alt={item.text}
+            className="w-14 h-14 object-contain"
+          />
 
         </div>
 
-      </section>
+        {/* TEXT */}
+        <p className="text-base md:text-lg font-semibold text-gray-800 text-center leading-snug">
+          {item.text}
+        </p>
+
+      </div>
+    ))}
+
+  </div>
+
+</section>
 
     </main>
   );
