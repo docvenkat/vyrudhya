@@ -1,11 +1,6 @@
-import Navbar from "../../components/Navbar";
-import { Cormorant_Garamond } from "next/font/google";
+"use client";
 
-// ✅ FIX: Define font properly
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600"],
-});
+import Navbar from "../../components/Navbar";
 
 export default function About() {
   return (
@@ -14,162 +9,139 @@ export default function About() {
       <Navbar />
 
       {/* HERO */}
-      <section className="text-center px-4 md:px-6 py-14 md:py-20 bg-[var(--sky)] rounded-b-3xl">
-        <h1 className={`text-5xl mb-4 ${cormorant.className}`}>
+      <section className="text-center px-4 py-12 md:py-16 bg-[var(--sky)]">
+
+        <h1 className="text-3xl md:text-5xl font-semibold mb-2">
           About Vyrudhya
         </h1>
-        <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+
+        <p className="max-w-xl mx-auto text-gray-700 text-sm md:text-base">
           Not just alphabet learning — a world your child can explore.
         </p>
+
       </section>
 
-      {/* VISION */}
-      <section className="py-12 px-4 md:px-6 max-w-3xl mx-auto space-y-8">
+      {/* ABOUT VISUAL (FILLED + TIGHT) */}
+      <div className="max-w-3xl mx-auto px-4 mt-8 mb-2">
 
-        {/* TITLE */}
-        <h2 className={`text-2xl md:text-4xl text-center ${cormorant.className}`}>
+        <div className="overflow-hidden rounded-2xl">
+
+          <img
+            src="/about/about-visual.png"
+            alt="About Visual"
+            className="w-full h-[240px] md:h-[280px] object-cover"
+          />
+
+        </div>
+
+      </div>
+
+      {/* DIVIDER */}
+      <div className="flex justify-center my-4">
+        <div className="w-12 h-[2px] bg-gray-200 rounded-full"></div>
+      </div>
+
+      {/* VISION */}
+      <section className="px-4 py-8 max-w-2xl mx-auto text-center">
+
+        <h2 className="text-2xl md:text-3xl font-semibold mb-6">
           Our Vision
         </h2>
 
-        {/* OPENING */}
-        <div className="text-center space-y-4">
-          <p className="text-2xl font-semibold">
-            Every child is born curious.
+        {/* TEXT BLOCKS */}
+        <div className="space-y-3 text-sm md:text-base leading-relaxed text-gray-700">
+
+          <p className="bg-white px-4 py-3 rounded-lg">
+            Every child is born curious. They explore the world, not just observe it.
           </p>
-          <p className="text-lg text-gray-700">
-            They don’t just see the world — they question it, explore it, and try to understand it.
+
+          <p className="bg-[var(--green)]/30 px-4 py-3 rounded-lg">
+            Over time, learning becomes limited. Repetition replaces exploration.
+            Alphabets turn into something memorised, not understood.
           </p>
+
+          <p className="bg-white px-4 py-3 rounded-lg font-medium text-[var(--text)]">
+            Children deserve more than ABC.
+          </p>
+
         </div>
 
-        {/* PROBLEM */}
-        <div className="bg-[var(--green)] p-8 rounded-2xl text-center shadow-sm">
-          <p>But somewhere along the way, learning becomes limited.</p>
-          <p className="mt-2">Limited to repetition.</p>
-          <p>Limited to memorization.</p>
-          <p>Limited to alphabets without meaning.</p>
-          <p className="mt-3 font-medium">And that is where the gap begins.</p>
-        </div>
+        {/* 3 CORE BOXES */}
+        <div className="grid md:grid-cols-3 gap-4 mt-6">
 
-        {/* BIG HIGHLIGHT */}
-        <div className="bg-[var(--sky)] p-5 md:p-10 rounded-2xl text-center shadow-sm">
-          <p className="text-2xl font-semibold">
-            Today’s children don’t just need alphabets.
-          </p>
-          <p className="text-xl mt-3 text-gray-700">
-            They need understanding.  
-            They need curiosity.  
-            They need a connection to the real world.
-          </p>
-        </div>
-
-        {/* BELIEF */}
-        <div className="text-center">
-          <p className="text-lg text-gray-700">
-            This vision was born from a simple but powerful belief:
-          </p>
-        </div>
-
-        {/* QUOTE */}
-        <div className="border-l-4 border-yellow-400 pl-4 md:pl-6 py-3 text-base md:text-xl italic text-gray-800">
-          Learning should not begin with memory —  
-          it should begin with curiosity.
-        </div>
-
-        {/* EXPLANATION */}
-        <div className="text-center space-y-4 text-gray-700">
-          <p>
-            These books were created to move beyond traditional ABC learning and introduce meaningful exploration from A to Z.
-          </p>
-
-          <p>
-            Where “A” is not just a letter, but a doorway to Animals, Art, and Awareness.
-          </p>
-
-          <p>
-            Where “S” is not just a sound, but Space, Science, and Discovery.
-          </p>
-        </div>
-
-        {/* CONNECTION */}
-        <div className="bg-white p-8 rounded-2xl text-center shadow-sm border border-gray-200">
-          <p className="text-gray-700">
-            From animals to space, from nature to culture, from everyday life to deeper understanding —
-          </p>
-          <p className="font-medium mt-3">
-            each page is designed to build connections, not just recognition.
-          </p>
-        </div>
-
-        {/* DISCOVERY */}
-        <div className="text-center">
-          <p className="text-lg">
-            Because children learn best not by being told — but by discovering.
-          </p>
-        </div>
-
-        {/* QUESTION */}
-        <div className="bg-[var(--cream)] p-5 md:p-10 rounded-2xl text-center border border-gray-200">
-          <p className="text-xl">
-            Every page is thoughtfully designed to make a child pause, think, and ask:
-          </p>
-          <p className="text-xl md:text-3xl mt-4 italic">
-            “What next?”
-          </p>
-        </div>
-
-        {/* DEPTH */}
-        <div className="text-center">
-          <p>This is not just about learning faster.</p>
-          <p className="font-medium">This is about learning deeper.</p>
-        </div>
-
-        {/* VALUE */}
-        <div className="bg-[var(--green)] p-8 rounded-2xl text-center shadow-sm">
-          <p className="mb-4 font-medium">It brings together what truly matters:</p>
-          <p>• Visual engagement that children love</p>
-          <p>• Meaningful, value-based learning that parents trust</p>
-          <p>• Educational depth that supports real understanding</p>
-        </div>
-
-        {/* PARENTS */}
-        <div className="text-center">
-          <p className="text-lg font-medium">
-            Because parents don’t just buy books.
-          </p>
-          <p className="text-gray-700">
-            They invest in their child’s future.
-          </p>
-        </div>
-
-        {/* FUTURE */}
-        <div className="bg-[var(--sky)] p-8 rounded-2xl text-center shadow-sm">
-          <p>And that future needs more than alphabets.</p>
-          <p className="mt-2">It needs thinkers.</p>
-          <p>It needs explorers.</p>
-          <p>It needs curious minds.</p>
-        </div>
-
-        {/* FINAL */}
-        <div className="text-center mt-10 space-y-3">
-          <p className="text-2xl font-semibold">
-            This is not just alphabet learning.
-          </p>
-          <p className="text-xl text-gray-700">
-            This is thoughtful learning — beyond the traditional method.
-          </p>
-
-          <div className="mt-6">
-            <p className="text-2xl font-semibold">
-              Not Just ABC…
-            </p>
-            <p className="text-lg text-gray-700">
-              A World Your Child Can Explore.
+          <div className="bg-white p-4 rounded-lg shadow-sm">
+            <h3 className="font-semibold text-sm mb-1">Curiosity First</h3>
+            <p className="text-xs text-gray-600">
+              Learning should spark questions, not just answers.
             </p>
           </div>
+
+          <div className="bg-white p-4 rounded-lg shadow-sm">
+            <h3 className="font-semibold text-sm mb-1">Real-World Learning</h3>
+            <p className="text-xs text-gray-600">
+              Every letter connects to real-life experiences.
+            </p>
+          </div>
+
+          <div className="bg-white p-4 rounded-lg shadow-sm">
+            <h3 className="font-semibold text-sm mb-1">Beyond Memorising</h3>
+            <p className="text-xs text-gray-600">
+              Understanding matters more than repetition.
+            </p>
+          </div>
+
         </div>
+
+        {/* CONTINUED TEXT */}
+        <div className="space-y-3 text-sm md:text-base leading-relaxed text-gray-700 mt-6">
+
+          <p className="bg-[var(--sky)]/30 px-4 py-3 rounded-lg">
+            Learning should connect with the real world — animals, nature, movement,
+            everything children see every day.
+          </p>
+
+          <p className="bg-white px-4 py-3 rounded-lg">
+            Our books build curiosity, not memory.
+          </p>
+
+          <p className="bg-[var(--green)]/20 px-4 py-3 rounded-lg">
+            They help children see beyond letters and begin asking questions.
+          </p>
+
+          <p className="text-blue-600 font-medium mt-2">
+            Learning is not the goal.
+          </p>
+
+          <p className="italic text-base md:text-lg">
+            Curiosity is.
+          </p>
+
+          <p className="italic text-lg md:text-xl font-medium">
+            “What next?”
+          </p>
+
+        </div>
+
+      </section>
+
+      {/* FOUNDER */}
+      <section className="px-4 pb-12 max-w-2xl mx-auto text-center">
+
+        <div className="flex justify-center my-4">
+          <div className="w-12 h-[2px] bg-gray-200 rounded-full"></div>
+        </div>
+
+        <h3 className="text-lg font-semibold mb-2">
+          From the Creator
+        </h3>
+
+        <p className="text-gray-700 text-sm md:text-base leading-relaxed">
+          Created by a mother who wanted learning to feel meaningful, not mechanical.
+          Built from real observations of how children explore, think, and ask questions.
+        </p>
 
       </section>
 
     </main>
   );
-}
+} 

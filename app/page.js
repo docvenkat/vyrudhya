@@ -1,9 +1,11 @@
 "use client";
 
 import Navbar from "../components/Navbar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-/* 🔥 CAROUSEL COMPONENT */
+/* =========================
+   SAFE CAROUSEL
+========================= */
 function Carousel() {
   const images = [
     "/images/learning1.jpg",
@@ -11,63 +13,65 @@ function Carousel() {
     "/images/learning3.jpg",
   ];
 
-  const [index, setIndex] = useState(0);
+  const [current, setCurrent] = useState(0);
 
-  const next = () => {
-    setIndex((prev) => (prev + 1) % images.length);
-  };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % images.length);
+    }, 3000);
 
-  const prev = () => {
-    setIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  };
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div className="relative w-full max-w-[420px]">
+    <div className="w-full max-w-[380px] mx-auto">
 
-      {/* IMAGE */}
-      <img
-        src={images[index]}
-        alt="Learning Preview"
-        className="w-full rounded-3xl shadow-lg transition duration-500"
-      />
+      <div className="relative h-[380px] flex items-center justify-center">
+        {images.map((img, index) => (
+          <img
+            key={index}
+            src={img}
+            alt="learning"
+            className="absolute w-full h-full object-contain rounded-2xl transition-opacity duration-500"
+            style={{ opacity: index === current ? 1 : 0 }}
+          />
+        ))}
+      </div>
 
-      {/* LEFT BUTTON */}
-      <button
-        onClick={prev}
-        className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 px-3 py-2 rounded-full shadow hover:bg-white"
-      >
-        ‹
-      </button>
-
-      {/* RIGHT BUTTON */}
-      <button
-        onClick={next}
-        className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 px-3 py-2 rounded-full shadow hover:bg-white"
-      >
-        ›
-      </button>
+      {/* DOTS */}
+      <div className="flex justify-center gap-2 mt-4">
+        {images.map((_, i) => (
+          <div
+            key={i}
+            onClick={() => setCurrent(i)}
+            className={`h-2 rounded-full cursor-pointer ${
+              current === i ? "w-6 bg-blue-500" : "w-2 bg-gray-300"
+            }`}
+          />
+        ))}
+      </div>
     </div>
   );
 }
 
-/* 🔥 MAIN PAGE */
+/* =========================
+   HOME PAGE
+========================= */
 export default function Home() {
   return (
     <main className="bg-[var(--cream)] min-h-screen text-[var(--text)]">
 
       <Navbar />
 
-      {/* HERO SECTION */}
-      <section className="bg-[var(--cream)]">
-
-        {/* MOBILE */}
-        <div className="md:hidden flex justify-center px-4 pt-4">
-          <div className="w-full max-w-[95%] rounded-3xl overflow-hidden bg-[#fffaf2] shadow-sm">
+      {/* HERO */}
+      <section>
+        <div className="md:hidden px-4 pt-4">
+          <div className="bg-white rounded-2xl overflow-hidden shadow-sm">
 
             <img
               src="/hero/hero.png"
-              alt="Hero"
-              className="w-full h-[240px] object-contain bg-[#fffaf2]"
+              className="w-full h-[240px] object-cover"
+              alt="hero"
             />
 
             <div className="p-5 text-center">
@@ -75,13 +79,12 @@ export default function Home() {
                 Not Just ABC...
               </h1>
 
-              <p className="text-lg text-blue-600 mb-3">
+              <p className="text-blue-600 mb-3">
                 A World Your Child Can Explore.
               </p>
 
               <p className="text-gray-600 mb-5 text-sm">
-                From Animals to Space, from Nature to India —
-                Every page builds curiosity, not just memory.
+                Every page builds curiosity, not memory.
               </p>
 
               <div className="flex flex-col gap-3">
@@ -104,21 +107,18 @@ export default function Home() {
 
         {/* DESKTOP */}
         <div className="hidden md:flex justify-center px-6 py-6">
-          <div className="relative w-full max-w-[1150px] rounded-3xl overflow-hidden bg-[var(--cream)] shadow-sm">
+          <div className="relative w-full max-w-[1150px] rounded-2xl overflow-hidden">
 
-            {/* IMAGE */}
-            <div className="absolute inset-0 flex items-center justify-end pr-6">
+            <div className="absolute inset-0 flex items-center justify-end">
               <img
                 src="/hero/hero.png"
-                alt="Hero"
-                className="h-[95%] w-auto object-contain"
+                className="h-full object-contain"
+                alt="hero"
               />
             </div>
 
-            {/* OVERLAY */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[var(--cream)]/88 via-[var(--cream)]/50 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-[var(--cream)]/90 to-transparent"></div>
 
-            {/* CONTENT */}
             <div className="relative px-10 py-12 flex items-center min-h-[460px]">
               <div className="max-w-lg">
 
@@ -131,8 +131,7 @@ export default function Home() {
                 </p>
 
                 <p className="text-gray-700 mb-6">
-                  From Animals to Space, from Nature to India —
-                  Every page builds curiosity, not just memory.
+                  Every page builds curiosity, not memory.
                 </p>
 
                 <div className="flex gap-4">
@@ -140,7 +139,7 @@ export default function Home() {
                     Explore Books
                   </button>
 
-                  <button className="bg-white/80 px-6 py-3 rounded-full">
+                  <button className="bg-gray-200 px-6 py-3 rounded-full">
                     See Inside Pages
                   </button>
 
@@ -154,79 +153,139 @@ export default function Home() {
 
           </div>
         </div>
-
       </section>
 
-      {/* WHY SECTION */}
-      <section className="section text-center">
-
-        <h2 className="text-3xl md:text-4xl font-semibold mb-14">
+      {/* WHY */}
+      <section className="py-12 text-center">
+        <h2 className="text-2xl md:text-3xl font-semibold mb-10">
           Why These Books Are Different
         </h2>
 
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
-
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-6 px-4 max-w-5xl mx-auto">
           {[
             { img: "/icons/concept.png", text: "Concept-Based ABC" },
             { img: "/icons/realworld.png", text: "Real-World Themes" },
-            { img: "/icons/visual.png", text: "Visually Engaging" },
+            { img: "/icons/visual.png", text: "Visual Learning" },
             { img: "/icons/parent.png", text: "Parent Approved" },
             { img: "/icons/curiosity.png", text: "Build Curiosity" },
           ].map((item, i) => (
-            <div
-              key={i}
-              className="group bg-[#fffaf2] p-7 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col items-center hover:-translate-y-2"
-            >
-              <div className="w-24 h-24 flex items-center justify-center mb-5 bg-white rounded-2xl shadow-md group-hover:scale-110 transition duration-300">
-                <img
-                  src={item.img}
-                  alt={item.text}
-                  className="w-14 h-14 object-contain"
-                />
-              </div>
-
-              <p className="text-base md:text-lg font-semibold text-gray-800 text-center leading-snug">
-                {item.text}
-              </p>
+            <div key={i} className="bg-white p-5 rounded-xl">
+              <img src={item.img} className="w-12 h-12 mx-auto mb-3" />
+              <p className="text-sm">{item.text}</p>
             </div>
           ))}
-
         </div>
-
       </section>
 
-      {/* LEARNING SECTION */}
-      <section className="section flex flex-col md:flex-row items-center gap-12">
+      {/* LEARNING */}
+      <section className="py-14 px-4 md:px-6 flex flex-col md:flex-row items-center gap-10 max-w-6xl mx-auto">
 
-        {/* LEFT: CAROUSEL */}
         <div className="flex-1 flex justify-center">
           <Carousel />
         </div>
 
-        {/* RIGHT: TEXT */}
-        <div className="flex-1">
-
-          <h2 className="text-3xl md:text-4xl font-semibold mb-6">
-            See How Your Child Learns
+        <div className="flex-1 max-w-[500px] text-center md:text-left">
+          <h2 className="text-2xl md:text-3xl font-semibold mb-4">
+            See What Your Child Will Learn
           </h2>
 
-          <p className="text-gray-700 mb-4 text-lg leading-relaxed">
+          <p className="text-gray-700 mb-4">
             Today’s children don’t just need alphabets.
           </p>
 
-          <p className="text-gray-700 mb-4 text-lg leading-relaxed">
-            They need understanding, curiosity, and a connection to the real world.
+          <p className="text-gray-700 mb-4">
+            They need curiosity, understanding, and connection to the real world.
           </p>
 
-          <p className="text-gray-700 mb-4 text-lg leading-relaxed">
-            These books go beyond repetitive ABC learning —
-            introducing meaningful exploration from A to Z.
-          </p>
-
-          <p className="text-blue-600 font-semibold text-xl mt-6">
+          <p className="text-blue-600 font-medium">
             Every page makes a child ask:
             <span className="italic"> “What next?”</span>
           </p>
+        </div>
+      </section>
+
+      {/* SHOP */}
+      <section className="py-20 px-4 md:px-6 max-w-6xl mx-auto text-center">
+
+        <h2 className="text-3xl md:text-4xl font-semibold mb-14">
+          Explore Our Books
+        </h2>
+
+        <div className="grid md:grid-cols-3 gap-10">
+
+          {[
+            {
+              img: "/books/animals.jpg",
+              title: "Animals ABC",
+              desc: "Explore animals through concepts and visuals.",
+            },
+            {
+              img: "/books/birds.jpg",
+              title: "Birds ABC",
+              desc: "Learn birds with real-world connection.",
+            },
+            {
+              img: "/books/vehicles.jpg",
+              title: "Vehicles ABC",
+              desc: "Discover vehicles and how they move the world.",
+            },
+          ].map((book, i) => {
+
+            const message = `Hi, I want to buy ${book.title} book`;
+            const link = `https://wa.me/919133233330?text=${encodeURIComponent(message)}`;
+
+            return (
+              <div
+                key={i}
+                className="bg-white rounded-3xl p-6 shadow-sm hover:shadow-lg transition duration-300 flex flex-col"
+              >
+
+                <div className="bg-[var(--cream)] rounded-2xl p-4 mb-5">
+                  <img
+                    src={book.img}
+                    className="w-full h-[260px] object-contain"
+                    alt={book.title}
+                  />
+                </div>
+
+                <h3 className="text-xl font-semibold mb-2">
+                  {book.title}
+                </h3>
+
+                <p className="text-gray-600 text-sm mb-5 flex-grow">
+                  {book.desc}
+                </p>
+
+                <div className="flex items-center justify-between">
+
+                  <div>
+                    <span className="text-lg font-semibold block">
+                      ₹89
+                    </span>
+                    <p className="text-xs text-gray-500">
+                      Order via WhatsApp
+                    </p>
+                  </div>
+
+                  <a
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 bg-[var(--yellow)] px-4 py-2 rounded-full font-medium"
+                  >
+                    <img
+                      src="/icons/whatsapp.png"
+                      alt="WhatsApp"
+                      className="w-4 h-4"
+                    />
+                    <span>Buy Now</span>
+                  </a>
+
+                </div>
+
+              </div>
+            );
+          })}
 
         </div>
 
@@ -234,4 +293,4 @@ export default function Home() {
 
     </main>
   );
-}
+} 
