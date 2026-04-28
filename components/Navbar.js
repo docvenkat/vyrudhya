@@ -1,22 +1,15 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { Playfair_Display } from "next/font/google";
-
-// Premium brand font
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["600"],
-});
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  // Scroll effect
+  // Scroll effect (kept but simplified)
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
@@ -30,22 +23,18 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`sticky top-0 z-50 px-6 md:px-12 py-4 flex items-center justify-between transition-all duration-300
-      ${
-        scrolled
-          ? "bg-white/90 backdrop-blur-md shadow-md border-b border-gray-200"
-          : "bg-white/70 backdrop-blur-sm"
-      }`}
+      className={`sticky top-0 z-50 px-6 md:px-12 py-3 flex items-center justify-between
+      ${scrolled ? "bg-white shadow-sm" : "bg-white"}`}
     >
 
-      {/* LOGO + BRAND */}
+      {/* LOGO (FIXED SIZE) */}
       <a href="/" className="flex items-center">
-  <img
-    src="/logo.png"
-    alt="Vyrudhya Logo"
-    className="h-14 md:h-16 w-auto object-contain"
-  />
-</a>
+        <img
+          src="/logo.png"
+          alt="Logo"
+          className="h-10 md:h-11 w-auto max-h-[44px] object-contain"
+        />
+      </a>
 
       {/* DESKTOP MENU */}
       <div className="hidden md:flex items-center space-x-8 font-medium text-[var(--text)]">
@@ -81,15 +70,12 @@ export default function Navbar() {
       {/* RIGHT SIDE */}
       <div className="flex items-center space-x-4">
 
-        {/* CART ICON */}
         <span className="text-xl cursor-pointer">🛒</span>
 
-        {/* BUY BUTTON */}
-        <button className="hidden md:block bg-[var(--yellow)] px-5 py-2 rounded-full font-medium hover:scale-105 transition">
+        <button className="hidden md:block bg-[var(--yellow)] px-5 py-2 rounded-full font-medium">
           Buy Now
         </button>
 
-        {/* MOBILE MENU BUTTON */}
         <button
           className="md:hidden text-2xl"
           onClick={() => setMenuOpen(!menuOpen)}

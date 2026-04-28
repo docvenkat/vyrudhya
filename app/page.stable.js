@@ -258,15 +258,13 @@ export default function Home() {
                 className="bg-white rounded-3xl p-6 shadow-sm hover:shadow-md transition flex flex-col"
               >
 
-                <a href={`/product/${book.title.toLowerCase().split(" ")[0]}`}>
-  <div className="bg-[var(--cream)] rounded-2xl p-5 mb-6">
-    <img
-      src={book.img}
-      className="w-full h-[260px] object-contain"
-      alt={book.title}
-    />
-  </div>
-</a>
+                <div className="bg-[var(--cream)] rounded-2xl p-5 mb-6">
+                  <img
+                    src={book.img}
+                    alt={book.title}
+                    className="w-full h-[260px] object-contain"
+                  />
+                </div>
 
                 <h3 className="text-xl font-semibold mb-2">
                   {book.title}
