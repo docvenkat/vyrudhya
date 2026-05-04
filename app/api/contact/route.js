@@ -1,3 +1,4 @@
+console.log("SCRIPT URL:", process.env.GOOGLE_SCRIPT_URL);
 import nodemailer from "nodemailer";
 
 export async function POST(req) {
