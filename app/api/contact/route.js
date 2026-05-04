@@ -1,11 +1,12 @@
-console.log("SCRIPT URL:", process.env.GOOGLE_SCRIPT_URL);
 import nodemailer from "nodemailer";
 
 export async function POST(req) {
   try {
     const { name, email, message, subject, age } = await req.json();
 
-    // ✅ Basic validation
+    // =========================
+    // ✅ VALIDATION
+    // =========================
     if (!name || !email || !message) {
       return Response.json({
         success: false,
@@ -13,7 +14,9 @@ export async function POST(req) {
       });
     }
 
-    // 📧 Transporter
+    // =========================
+    // 📧 EMAIL TRANSPORT
+    // =========================
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -42,87 +45,87 @@ ${message}
     });
 
     // =========================
-    // 📤 AUTO REPLY
+    // 📤 AUTO REPLY (IMPROVED)
     // =========================
     await transporter.sendMail({
-  from: `"Vyrudhya" <${process.env.EMAIL_USER}>`,
-  to: email,
-  subject: "Thanks for contacting Vyrudhya 😊",
+      from: `"Vyrudhya" <${process.env.EMAIL_USER}>`,
+      to: email,
+      subject: "Thanks for contacting Vyrudhya 😊",
 
-  html: `
-  <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-    
-    <p>Hi <b>${name}</b>,</p>
+      html: `
+      <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+        
+        <p>Hi <b>${name}</b>, 👋</p>
 
-    <p>
-      Thank you for contacting <b>Vyrudhya</b> 😊 <br/>
-      We’ve received your request and will get back to you shortly.
-    </p>
+        <p>
+          Thank you for contacting <b>Vyrudhya</b> 😊<br/>
+          We’ve received your request and will help you choose the right learning experience for your child.
+        </p>
 
-    <p><b>Category:</b> ${subject || "General Inquiry"}</p>
-    <p><b>Age Group:</b> ${age}</p>
+        <div style="background:#f7f4ef; padding:12px; border-radius:8px; margin:15px 0;">
+          <p><b>Category:</b> ${subject || "General Inquiry"}</p>
+          <p><b>Age Group:</b> ${age || "Not provided"}</p>
+        </div>
 
-    <hr style="margin: 16px 0;" />
+        <p><b>Your Message:</b></p>
+        <p style="background:#fafafa; padding:10px; border-radius:6px;">
+          ${message}
+        </p>
 
-    <p><b>Your Message:</b></p>
-    <p style="background:#f7f7f7; padding:10px; border-radius:6px;">
-      ${message}
-    </p>
+        <hr style="margin:20px 0;" />
 
-    <hr style="margin: 16px 0;" />
+        <p>⏳ We usually respond within a few hours.</p>
 
-    <p>
-      We usually respond within a few hours.
-    </p>
+        <p>👉 Want faster help?</p>
 
-    <p>
-      If urgent, message us on WhatsApp:<br/>
-      <a href="https://wa.me/919133233330" 
-         style="color:#0a7cff; text-decoration:none;">
-         Chat on WhatsApp
-      </a>
-    </p>
+        <p>
+          <a href="https://wa.me/919133233330"
+             style="background:#25D366; color:white; padding:10px 16px; text-decoration:none; border-radius:6px;">
+             Chat on WhatsApp
+          </a>
+        </p>
 
-    <br/>
+        <hr style="margin:20px 0;" />
 
-    <p>
-      Best regards,<br/>
-      <b>Team Vyrudhya</b>
-    </p>
+        <p>
+          Best regards,<br/>
+          <b>Team Vyrudhya</b><br/>
+          <span style="color:#777;">Designed for joyful learning ✨</span>
+        </p>
 
-  </div>
-  `,
-});
+      </div>
+      `,
+    });
 
     // =========================
-// 📊 GOOGLE SHEET LOGGING
-// =========================
-try {
-  console.log("Calling Google Script...");
+    // 📊 GOOGLE SHEET LOGGING
+    // =========================
+    try {
+      const sheetRes = await fetch(process.env.GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          subject,
+          age,
+          message,
+        }),
+      });
 
-  const sheetRes = await fetch(process.env.GOOGLE_SCRIPT_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name: name,
-      email: email,
-      subject: subject,
-      age: age,
-      message: message,
-    }),
-  });
+      // Optional debug (keep for now, remove later)
+      const text = await sheetRes.text();
+      console.log("SHEET RESPONSE:", text);
 
-  console.log("Fetch sent");
+    } catch (sheetError) {
+      console.warn("Sheet logging failed:", sheetError.message);
+    }
 
-  const text = await sheetRes.text();
-  console.log("SHEET RESPONSE:", text);
-
-} catch (sheetError) {
-  console.warn("Sheet logging failed:", sheetError);
-}
-
+    // =========================
+    // ✅ FINAL RESPONSE
+    // =========================
     return Response.json({ success: true });
 
   } catch (error) {
