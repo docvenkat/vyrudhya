@@ -95,27 +95,33 @@ ${message}
 });
 
     // =========================
-    // 📊 GOOGLE SHEET LOGGING
-    // =========================
-    try {
-      await fetch(process.env.SHEET_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+// 📊 GOOGLE SHEET LOGGING
+// =========================
+try {
+  console.log("Calling Google Script...");
 
-        // ✅ EXACT ORDER MATCHING APPS SCRIPT
-        body: JSON.stringify({
-          name: name,
-          email: email,
-          subject: subject,
-          age: age,
-          message: message
-        }),
-      });
-    } catch (sheetError) {
-      console.warn("Sheet logging failed:", sheetError.message);
-    }
+  const sheetRes = await fetch(process.env.GOOGLE_SCRIPT_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name,
+      email: email,
+      subject: subject,
+      age: age,
+      message: message,
+    }),
+  });
+
+  console.log("Fetch sent");
+
+  const text = await sheetRes.text();
+  console.log("SHEET RESPONSE:", text);
+
+} catch (sheetError) {
+  console.warn("Sheet logging failed:", sheetError);
+}
 
     return Response.json({ success: true });
 
